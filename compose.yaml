@@ -1,0 +1,20 @@
+services:
+  jupyter:
+    image: postech-jypyter:local
+    build: .
+    container_name: postech-jupyter
+    # Apenas quem usa podman com libkrun habilitado (roda o container em uma microVM)
+    annotations:
+      run.oci.handler: 'krun'
+    # Para abrir o jupyter depois de subir, use um browser e http://localhost:10000
+    ports:
+      - "10000:8888"
+    volumes:
+      - ./notebooks:/workspace/notebooks:z
+    restart: unless-stopped
+    # Apenas para quem usa GPUs AMD e queira ter aceleração no container
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - keep-groups
