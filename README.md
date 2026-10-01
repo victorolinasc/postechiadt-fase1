@@ -13,3 +13,4 @@ para executar o Python Jupyter via container.
 - Primeiro, construir ("buildar") a imagem com: `podman compose build`
 - Em seguida, executar a imagem: `podman compose up -d` (o `-d` fará com que a execução aconteça em segundo plano)
 - Abrir um browser e navegar para `http://localhost:10000`
+
