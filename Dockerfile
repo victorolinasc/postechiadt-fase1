@@ -29,6 +29,7 @@ RUN uv pip install --system \
     duckdb \
     matplotlib \
     seaborn \
+    shap \
     ty
 
 # Expose Jupyter Lab port
