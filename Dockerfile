@@ -1,4 +1,4 @@
-FROM python:3.13-slim
+FROM python:3.14-slim
 
 RUN apt-get update \
     && apt-get install -y wget curl \
@@ -13,20 +13,13 @@ WORKDIR /workspace
 # Installing to system Python since this is a container
 RUN uv pip install --system \
     jupyterlab \
-    jupyter-ai \
-    jupyter-ai-magics \
+    jupyterlab_widgets \
     jupyter-collaboration \
     ipykernel \
-    openai \
-    langchain-openai \
-    langchain-anthropic \
+    ipywidgets \
     pandas \
     numpy \
     scikit-learn \
-    torch \
-    tensorflow \
-    psycopg2-binary \
-    duckdb \
     matplotlib \
     seaborn \
     shap \
