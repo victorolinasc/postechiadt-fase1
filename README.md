@@ -2,7 +2,7 @@
 
 Este repositório possui Python notebooks que analisam datasets usando algoritmos de Machine Learning. Ele foi criado em grupo pelos alunos:
 
-- Arnold (rm | Github: @ArnoldReis)
+- Arnold (rm377310 | Github: @ArnoldReis)
 - Bhendon (rm | Github: @bhendon-soares)
 - Laercio (rm378529 | Github: @laercioalves)
 - Marcos (rm378872 | Github: @MarcosAngeloPintoAlves)
