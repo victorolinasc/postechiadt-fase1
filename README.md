@@ -1,63 +1,146 @@
-# Pós-tech IA para Devs - FIAP
+# Pós-Tech IA para Devs – FIAP
 
-Este repositório possui Python notebooks que analisam datasets usando algoritmos de Machine Learning. Ele foi criado em grupo pelos alunos:
+Este repositório contém notebooks Python que analisam datasets usando algoritmos de **Machine Learning**. O projeto foi desenvolvido como solução para o **Tech Challenge – Fase 1** da Pós-Tech IA para Devs da FIAP.
 
-- Arnold (rm377310 | Github: @ArnoldReis)
-- Bhendon (rm377937 | Github: @bhendon-soares)
-- Laercio (rm378529 | Github: @laercioalves)
-- Marcos (rm378872 | Github: @MarcosAngeloPintoAlves)
-- Victor (rm378625 | Github: @victorolinasc)
+## Integrantes do grupo
 
-## Objetivo
+| Nome | RM | GitHub |
+|---|---|---|
+| Arnold | 377310 | [@ArnoldReis](https://github.com/ArnoldReis) |
+| Bhendon | 377937 | [@bhendon-soares](https://github.com/bhendon-soares) |
+| Laercio | 378529 | [@laercioalves](https://github.com/laercioalves) |
+| Marcos | 378872 | [@MarcosAngeloPintoAlves](https://github.com/MarcosAngeloPintoAlves) |
+| Victor | 378625 | [@victorolinasc](https://github.com/victorolinasc) |
 
-O objetivo é exercitar o conteúdo aprendido no curso e entregar como nossa solução ao Tech Challenge da primeira fase. Cada notebook nesse projeto está documentado passo a passo (usando células de markdown no próprio notebook). Todos os resultados foram reproduzidos por todos do grupo.
+## 1. Objetivo
 
-## Datasets escolhidos
+Aplicar os conhecimentos da primeira fase do curso em análise de dados e classificação com Machine Learning. Os notebooks documentam as etapas por meio de células Markdown e código. Os resultados foram reproduzidos pelos integrantes do grupo.
 
-Para o desafio de criar classificadores que possam predizer diagnósticos de doenças, nós escolhemos dois datasets bem distintos:
+## 2. Datasets escolhidos
 
-1. Grupo de dados sobre estilo de vida e a relação com a doença depressão em estudantes universitários.
-2. Grupo de dados do estado de Winsconsin nos EUA sobre câncer de mama ("wdbc" sendo a sigla para Winsconsin Diagnostics Breast Cancer).
+### 2.1. Saúde mental de estudantes universitários
 
-## Conteúdo
+Dados sobre estilo de vida de estudantes e sua relação com a depressão, utilizados para estudar a classificação de registros relacionados à presença de depressão.
 
-O repositório possui o seguinte layout:
+- Dataset: `notebooks/saude_mental/dataset.csv`
+- Notebook: `notebooks/saude_mental/analysis.ipynb`
 
-- `AGENTS.md`: meta instruções para agentes de IA
-- `TECH_CHALLENGE.md`: descrição do desafio da fase 1 do curso
-- `Dockerfile`: Definição da imagem do serviço Jupyter pela qual os resultados podem ser reproduzidos individualmente
-- `compose.yaml`: Configuração da execução do container
-- `notebooks/`
-  - `saude_mental/`: primeiro caso de análise
-    - `dataset.csv`: dataset sobre estilo de vida de estudantes universitários
-    - `analysis.ipynb`: notebook com a análise completa do dataset acima
-  - `wdbc/`: segundo caso de análise (Winsconsin Diagnostics Breast Cancer)
-    - `dataset.csv`: dataset sobre casos de câncer de mama
-    - `analysis.ipynb`: notebook com a análise completa do dataset acima      
+### 2.2. Wisconsin Diagnostic Breast Cancer (WDBC)
 
-## Pré-requisitos
+Dados de diagnóstico de câncer de mama utilizados para classificação de tumores benignos e malignos.
 
-- Engine de execução de containers (Docker ou Podman ou qualquer outra compatível com o padrão OCI)
-- Utilitário de compose (docker-compose ou podman-compose ou qualquer outro compatível com o padrão OCI)
+- Dataset: `notebooks/wdbc/dataset.csv`
+- Notebook: `notebooks/wdbc/analysis.ipynb`
 
-## Executando a infraestrutura (exemplo com `podman`)
+## 3. Estrutura do projeto
 
-- Primeiro, construir ("buildar") a imagem com: `podman compose build`
-- Em seguida, executar a imagem: `podman compose up -d` (o `-d` fará com que a execução aconteça em segundo plano)
-- Abrir um browser e navegar para `http://localhost:10000`
-
-## Executando os notebooks
-
-Ao abrir a página inicial, haverá um painel ao lado esquerdo que terá as duas pastas de notebooks. Basta dar dois cliques em um arquivo de notebook (que possui a extensão `ipynb`).
-
-Na sequência, basta seguir o passo a passo e ir executando cada célula de código individualmente.
-
-### !!! ATENÇÃO !!!
-
-Alguns ambientes de notebook já possuem as bibliotecas instaladas e alguns **não permitem** comandos de instalar bibliotecas extras. Assim, células que tenham as instruções abaixo podem falhar:
-
-```python
-! pip install xxxxxx
+```text
+postechiadt-fase1/
+├── AGENTS.md              # Instruções para agentes de IA
+├── Dockerfile             # Imagem do ambiente JupyterLab
+├── README.md              # Documentação do projeto
+├── TECH_CHALLENGE.md      # Descrição do desafio
+├── compose.yaml           # Configuração do container
+└── notebooks/
+    ├── saude_mental/
+    │   ├── dataset.csv
+    │   └── analysis.ipynb
+    └── wdbc/
+        ├── dataset.csv
+        └── analysis.ipynb
 ```
 
-Nesse caso, pode-se tentar seguir executando as próximas células.
+## 4. Pré-requisitos
+
+- **Git**, para obter o repositório.
+- **Podman ou Docker**, com um provedor **Compose** funcional.
+- **Navegador web**, para acessar o JupyterLab.
+
+Não é necessário instalar Python ou JupyterLab diretamente no computador quando se utiliza o container do projeto.
+
+## 5. Obtendo o projeto
+
+Clone o repositório usando sua URL real no GitHub:
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd postechiadt-fase1
+```
+
+Se o repositório já estiver clonado, basta acessar seu diretório.
+
+## 6. Construindo e iniciando o ambiente
+
+Execute os comandos a seguir **dentro do diretório `postechiadt-fase1`**, onde está o arquivo `compose.yaml`.
+
+### Opção A — Podman
+
+```bash
+podman compose build
+podman compose up -d
+podman ps
+```
+
+> **Linux com Podman:** caso apareça um erro de conexão com `podman.sock`, verifique o serviço do socket com `systemctl --user status podman.socket`. Se necessário, inicie-o com `systemctl --user enable --now podman.socket` e tente novamente.
+
+### Opção B — Docker
+
+```bash
+docker compose build
+docker compose up -d
+docker ps
+```
+
+O `build` prepara a imagem com as dependências; o `up -d` inicia o ambiente em segundo plano. Não é necessário reconstruir a imagem a cada utilização, a menos que sua configuração ou suas dependências tenham mudado.
+
+## 7. Acessando o JupyterLab
+
+Com o container em execução, abra no navegador:
+
+**http://localhost:10000**
+
+Essa é a porta de acesso informada para o projeto e utilizada nos testes com Podman. Se o mapeamento de portas no `compose.yaml` for alterado, ajuste o endereço conforme a configuração.
+
+> **Segurança:** o ambiente foi configurado para acesso local. Não exponha a porta do JupyterLab diretamente à internet sem configurar autenticação e controles de acesso apropriados.
+
+## 8. Executando os notebooks
+
+1. No painel de arquivos à esquerda do JupyterLab, abra `saude_mental` ou `wdbc`.
+2. Dê dois cliques em `analysis.ipynb`.
+3. Leia as células Markdown e execute as células de código **na ordem apresentada**.
+4. Use **Shift + Enter** para executar uma célula ou o menu **Run → Run All Cells** para executar todas.
+
+## 9. Dependências Python
+
+As bibliotecas necessárias são instaladas automaticamente durante a construção da imagem definida no `Dockerfile`. Entre as bibliotecas disponíveis no ambiente estão:
+
+| Biblioteca | Finalidade |
+|---|---|
+| NumPy | Operações numéricas |
+| Pandas | Manipulação e análise de dados |
+| Matplotlib | Gráficos e visualização |
+| Seaborn | Visualização estatística |
+| Scikit-learn | Algoritmos de Machine Learning |
+| SHAP | Interpretação de modelos |
+| JupyterLab | Execução interativa dos notebooks |
+
+**Não é necessário executar `pip install` manualmente** ao utilizar o ambiente fornecido pelo projeto. Em outros ambientes, as dependências podem precisar de instalação própria.
+
+## 10. Gerenciando o ambiente
+
+| Ação | Podman | Docker |
+|---|---|---|
+| Ver containers ativos | `podman ps` | `docker ps` |
+| Acompanhar logs | `podman compose logs -f` | `docker compose logs -f` |
+| Parar e remover containers | `podman compose down` | `docker compose down` |
+| Iniciar novamente | `podman compose up -d` | `docker compose up -d` |
+
+O comando `compose down` remove os containers do projeto; a preservação de arquivos criados durante a execução depende dos volumes configurados no `compose.yaml`. Para manter alterações importantes, salve-as nos arquivos do repositório ou em volumes persistentes.
+
+## 11. Reprodutibilidade
+
+Os datasets e notebooks estão incluídos no repositório, e o `Dockerfile` define o ambiente de execução. Recomenda-se utilizar o container disponibilizado para reduzir diferenças entre instalações e facilitar a reprodução dos experimentos.
+
+---
+
+**Projeto acadêmico — Pós-Tech IA para Devs / FIAP — Tech Challenge, Fase 1.**
