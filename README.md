@@ -51,13 +51,3 @@ O repositório possui o seguinte layout:
 Ao abrir a página inicial, haverá um painel ao lado esquerdo que terá as duas pastas de notebooks. Basta dar dois cliques em um arquivo de notebook (que possui a extensão `ipynb`).
 
 Na sequência, basta seguir o passo a passo e ir executando cada célula de código individualmente.
-
-### !!! ATENÇÃO !!!
-
-Alguns ambientes de notebook já possuem as bibliotecas instaladas e alguns **não permitem** comandos de instalar bibliotecas extras. Assim, células que tenham as instruções abaixo podem falhar:
-
-```python
-! pip install xxxxxx
-```
-
-Nesse caso, pode-se tentar seguir executando as próximas células.
