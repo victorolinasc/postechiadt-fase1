@@ -1,16 +1,18 @@
+# ============================================================
+# Etapa 1 - Ambiente original
+# ============================================================
 FROM python:3.14-slim
 
 RUN apt-get update \
-    && apt-get install -y wget curl \
+    && apt-get install -y --no-install-recommends \
+       wget curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install uv
 
-# Set working directory
 WORKDIR /workspace
 
-# Install Jupyter Lab and jupyter-ai using uv
-# Installing to system Python since this is a container
+# Bibliotecas originais - Python 3.14
 RUN uv pip install --system \
     jupyterlab \
     jupyterlab_widgets \
@@ -25,17 +27,46 @@ RUN uv pip install --system \
     shap \
     ty
 
-# Expose Jupyter Lab port
+# ============================================================
+# Python 3.12 isolado
+# ============================================================
+
+# Instalar Python 3.12 isoladamente
+RUN uv python install 3.12
+
+# Criar ambiente virtual para pneumonia
+RUN uv venv --python 3.12 /opt/pneumonia-venv
+
+
+# Instalar TensorFlow e dependências
+RUN uv pip install \
+    --python /opt/pneumonia-venv/bin/python \
+    tensorflow==2.21.0 \
+    ipykernel \
+    pandas \
+    numpy \
+    matplotlib \
+    seaborn \
+    scikit-learn \
+    scipy \
+    pillow
+
+# Registrar kernel do notebook de pneumonia
+RUN /opt/pneumonia-venv/bin/python -m ipykernel install \
+    --prefix=/usr/local \
+    --name=pneumonia \
+    --display-name="Python 3.12 (Pneumonia - TensorFlow)"
+
+# ============================================================
+# Configuração JupyterLab
+# ============================================================
+
 EXPOSE 8888
 
-# Set environment variables
-# UV_CACHE_DIR will be overridden by bind mount
 ENV UV_CACHE_DIR=/workspace/.uv-cache
 ENV JUPYTER_CONFIG_DIR=/workspace/.jupyter
 ENV IPYTHONDIR=/workspace/.jupyter/ipython
 
-# Start Jupyter Lab with no authentication
-# This is a local sandbox environment
 CMD ["jupyter", "lab", \
      "--ip=0.0.0.0", \
      "--port=8888", \

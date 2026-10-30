@@ -1,9 +1,10 @@
 services:
   jupyter:
-    image: postech-jypyter:local
-    build: .
+    image: postech-jupyter:local
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: postech-jupyter
-    # Para abrir o Jupyter depois de subir, use http://localhost:10000
     ports:
       - "10000:8888"
     volumes:

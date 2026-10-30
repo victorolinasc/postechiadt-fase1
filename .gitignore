@@ -152,3 +152,7 @@ notebook/templates/*.html
 
 # Temporary files used for testing
 tmp/
+# Dataset de pneumonia
+notebooks/pneumonia/chest_xray.zip
+notebooks/pneumonia/dataset/
+
